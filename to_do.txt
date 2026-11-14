@@ -1,0 +1,8 @@
+To Do List:
+    - Add docstring for NeuralNetwork
+    - Figure out standard way of preprocessing MNIST data
+    - Build interface for defining weight initialisation scheme
+    - Build safeguards into NeuralNetwork for error handling
+    - Build framework for statistical analysis of activation
+      and gradient values
+    - Create container for all experiments we would like to run
