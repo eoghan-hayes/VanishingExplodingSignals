@@ -1,2 +1,2 @@
-# VanishingExplodingSignals
-Codebase for Group 0.
+# Vanishing and Exploding Signals
+
