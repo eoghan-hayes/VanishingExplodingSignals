@@ -1,5 +1,4 @@
 To Do List:
-    - Add docstring for NeuralNetwork
     - Figure out standard way of preprocessing MNIST data
     - Build interface for defining weight initialisation scheme
     - Build safeguards into NeuralNetwork for error handling
