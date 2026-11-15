@@ -1,5 +1,4 @@
 To Do List:
-    - Figure out standard way of preprocessing MNIST data
     - Build interface for defining weight initialisation scheme
     - Build safeguards into NeuralNetwork for error handling
     - Build framework for statistical analysis of activation
