@@ -37,6 +37,9 @@ class NeuralNetwork(nn.Module):
         Activations h⁽¹⁾, …, h⁽ᴸ⁾ from the last forward pass, each of shape
         (batch, width). After `loss.backward()`, `h[l-1].grad` holds ∂L/∂h⁽ˡ⁾.
         Empty until the first call.
+    z: list of torch.Tensor
+        Pre-activations z⁽¹⁾, …, z⁽ᴸ⁾ from the last forward pass, each of shape
+        (batch, width). Empty until the first call.
     """
 
     def __init__(self, depth, width, activation, weight_init, bias_init, d_in, d_out):
@@ -45,8 +48,8 @@ class NeuralNetwork(nn.Module):
         # Create a list of layer widths
         sizes = [d_in] + [width] * depth                                    
 
-        # Container for activation values
-        self.h = []
+        self.h = [] # Container for activation values
+        self.z = [] # Container for pre-activation values
 
         # Create network layers 
         self.layers = nn.ModuleList(nn.Linear(sizes[i], sizes[i+1]) for i in range(depth))
@@ -62,13 +65,16 @@ class NeuralNetwork(nn.Module):
                 bias_init(layer.bias)
      
     def forward(self, x):
+        self.z = [] # Reset stored pre-activations          
         self.h = [] # Reset stored activations          
         h = x.flatten(1) # h(0) = x
 
         # Recursion over the networks hidden layers
         for layer in self.layers:
+            z = layer(h)
             h = self.activation(layer(h))
             if h.requires_grad:
                 h.retain_grad() # Allow measurement of gradients
+            self.z.append(z)
             self.h.append(h)
         return self.out(h)
